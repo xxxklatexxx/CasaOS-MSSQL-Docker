@@ -1,0 +1,45 @@
+name: kind_armin
+services:
+  main_app:
+    cpu_shares: 90
+    command: []
+    container_name: mssql
+    deploy:
+      resources:
+        limits:
+          memory: 7716M
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+      - SA_PASSWORD=Str0ng_P@ssw0rd
+      - TZ=Asia/Manila
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    labels:
+      icon: https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg
+    ports:
+      - target: 1433
+        published: "1433"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mssql/config
+        target: /config
+      - type: bind
+        source: /DATA
+        target: /DATA
+    devices: []
+    cap_add: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg
+  index: /
+  port_map: ""
+  scheme: http
+  store_app_id: kind_armin
+  title:
+    custom: MS SQL
